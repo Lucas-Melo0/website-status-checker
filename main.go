@@ -20,8 +20,8 @@ func main() {
 		go checkUrl(adr, c)
 	}
 
-	for {
-		go checkUrl(<-c, c)
+	for l := range c {
+		go checkUrl(l, c)
 
 	}
 
