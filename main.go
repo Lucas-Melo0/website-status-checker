@@ -20,8 +20,9 @@ func main() {
 		go checkUrl(adr, c)
 	}
 
-	for i := 0; i < len(addresses); i++ {
-		fmt.Println(<-c)
+	for {
+		go checkUrl(<-c, c)
+
 	}
 
 }
@@ -30,11 +31,11 @@ func checkUrl(url string, c chan string) {
 	_, err := http.Get(url)
 	if err != nil {
 		fmt.Println(url, "might be down")
-		c <- "Migh be down"
+		c <- url
 		return
 	}
 
 	fmt.Println(url, "is up and running!")
-	c <- "is up and running!"
+	c <- url
 
 }
